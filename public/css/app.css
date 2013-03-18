@@ -8,7 +8,8 @@ h3 {
 	border-bottom:1px solid gray;
 }
 
-
+/*SOME BOX SHADOW STUFF TO PRETTY IT UP, 
+LIFTED FROM HERE http://matthamm.com/box-shadow-curl.html*/
 ul.box {
 position: relative;
 z-index: 1; /* prevent shadows falling behind containers with backgrounds */

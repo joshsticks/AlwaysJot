@@ -38,7 +38,14 @@ var NoteEditView = NoteView.extend({
 });
 
 //COLLECTIONS
-var NoteList = Backbone.Collection.extend({model: Note});
+var NoteList = Backbone.Collection.extend({
+	model: Note,
+	url: '/notes.json',
+	parse: function (response) {
+		return response;
+	},
+});
+
 var notes = new NoteList( [{title: "Accomplishments", content: "Met Sales Goals, Improved Hiring Process"},
   {title: "Shopping List", content: "Egg, Bacon, Milk, Toilet Paper"},
   {title: "HH Quote", content: "Education is the way to achieve far-reaching results, it is the proper way to promote compassion and tolerance in society."}]);
@@ -68,18 +75,18 @@ var AlwaysJotApp = new (Backbone.Router.extend({
 		"note/:id": "show",
 		"note/:id/edit": "edit"},
 	initialize: function () {
-		this.noteList = new NoteList([{id: 1, title: "Accomplishments", content: "Met Sales Goals, Improved Hiring Process"},
-  {id: 2, title: "Shopping List", content: "Egg, Bacon, Milk, Toilet Paper"},
-  {id: 3,title: "HH Quote", content: "Education is the way to achieve far-reaching results, it is the proper way to promote compassion and tolerance in society."}]);
+		this.noteList = new NoteList();
+		this.noteList.on('reset', function () {
+			AlwaysJotApp.noteListView = new NoteListView({collection: AlwaysJotApp.noteList});
+			AlwaysJotApp.noteListView.render();
+			$("#app").html(AlwaysJotApp.noteListView.el);
+		});
 	},
 	start: function () {
 		Backbone.history.start({pushState: true});
 	},
 	index: function () {
-		//this.noteList.fetch();
-		this.noteListView = new NoteListView({collection: this.noteList});
-		this.noteListView.render();
-		$("#app").html(this.noteListView.el);
+		this.noteList.fetch();
 	},
 	show: function (id) {
 		var noteView = new NoteDetailView({model: this.noteList.get(id)});
