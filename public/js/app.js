@@ -1,5 +1,7 @@
 //MODELS
-var Note = Backbone.Model.extend({});
+var Note = Backbone.Model.extend({
+	url: '/note.json'
+});
 var note = new Note({
 	title: "Dr. Contact Info", 
 	content: "Dr. Steph	ens, 123 Fake St. Richmond VA 23219"
@@ -34,7 +36,13 @@ var NoteDetailView = NoteView.extend({
 
 var NoteEditView = NoteView.extend({
 	className: "box edit",
-	template: _.template("<li><h3><input type='text' value='<%= title %>'></input></h3><textarea><%= content %></textarea></li>")
+	events: {
+		"click .save-button" : "save"
+	},
+	template: _.template("<li><h3><input type='text' value='<%= title %>'></input></h3><textarea><%= content %></textarea></li><input class='save-button' type='button' value='Save'></input>"),
+	save: function () {
+		//sync here
+	}
 });
 
 //COLLECTIONS
