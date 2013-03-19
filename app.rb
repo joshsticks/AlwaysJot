@@ -15,6 +15,6 @@ get '/notes.json' do
 	JSON.parse( IO.read('notes.json') ).to_json
 end
 
-#post '/notes' do
+post '/notes.json' do
 
-#end
+end

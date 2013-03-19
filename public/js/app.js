@@ -2,7 +2,7 @@
 var Note = Backbone.Model.extend({});
 var note = new Note({
 	title: "Dr. Contact Info", 
-	content: "Dr. Stepens, 123 Fake St. Richmond VA 23219"
+	content: "Dr. Steph	ens, 123 Fake St. Richmond VA 23219"
 });
 
 //VIEWS
@@ -81,12 +81,13 @@ var AlwaysJotApp = new (Backbone.Router.extend({
 			AlwaysJotApp.noteListView.render();
 			$("#app").html(AlwaysJotApp.noteListView.el);
 		});
+		this.noteList.fetch();
 	},
 	start: function () {
 		Backbone.history.start({pushState: true});
 	},
 	index: function () {
-		this.noteList.fetch();
+		//default view
 	},
 	show: function (id) {
 		var noteView = new NoteDetailView({model: this.noteList.get(id)});
