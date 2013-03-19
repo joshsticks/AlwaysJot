@@ -40,8 +40,8 @@ var NoteEditView = NoteView.extend({
 		"click .save-button" : "save"
 	},
 	template: _.template("<li><h3><input type='text' value='<%= title %>'></input></h3><textarea><%= content %></textarea></li><input class='save-button' type='button' value='Save'></input>"),
-	save: function () {
-		//sync here
+	save: function () {	
+		//this.model.save(array of changed attributes);
 	}
 });
 
